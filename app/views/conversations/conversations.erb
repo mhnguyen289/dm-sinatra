@@ -1,0 +1,72 @@
+<% if logged_in? %>
+    
+    <br><br><br>
+    
+    <ul>
+     <div class="row">
+      <!-- Not implemented on tutorial -->
+      <div class="col-md-4">
+        <div style="height: 300px; overflow-y: auto;">
+          <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Registered Users</div>
+
+            <!-- Table -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% User.all.each_with_index do |user, index| %>
+                <% if user.username != current_user.username %>
+                <tr>
+                  <td><%= index +=1 %></td>
+                  <td><%= user.username %></td>                                  
+                  <td>
+                    <a class="btn btn-success btn-xs start-conversation" data-rip="2" data-sid="1" href='messages/<%=user.id%>'>Send Message</a>
+                  </td>
+                </tr>
+                <% end %>
+                <% end %>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+<!--         <hr>
+        <h3>Your Conversations</h3>
+
+        <div style="height: 400px; overflow-y: auto;">
+          if Channel.all.any?
+          <ul class="media-list">
+            <Channel.all.each do |conversation| 
+            <li class="media">
+               image_tag("http://placehold.it/50x50", class: "media-object pull-left") 
+              <div class="media-body">
+                <a class="conversation" data-cid="1" href="/conversations/1"></a>
+                <p> conversation.messages.last.nil? ? "No messages" : truncate(conversation.messages.last.body, length: 45)</p>
+              </div>
+            </li>
+
+            end 
+          </ul>
+           else 
+          <p>You have no conversations. Click send message with any user to create one.</p>
+          <end 
+        </div>
+
+      </div>
+
+      <div class="col-md-4">
+
+      </div>
+
+    </div> -->
+    
+    
+    <% end %>

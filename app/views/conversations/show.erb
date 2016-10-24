@@ -1,0 +1,57 @@
+<form action='/conversations/new' method='POST'>
+
+  <label>Title </label><br><br><input id="title" type='text' name="title"><br><br>
+
+  <input type="submit" value="submit">
+</form>
+
+
+
+
+<h3>Title: <em><%= @conversation.title %></em></h3>
+
+<ol>
+<%binding.pry%>
+	<% @conversation.messages.each do |message| %>
+
+		<li><%= message.content%> | <%=message.user.username%></li>
+	<% end %>
+</ol>
+
+
+
+
+<form action='/conversations/<%=@conversation.id %>' method='POST'>
+<label>Content: </label><br><br><input id="content" type='text' name="content"><br><br>
+
+<h3><a href="/conversations/<%=@conversation.id%>/edit">(edit)</a>
+<a href="/conversations/<%=@conversation.id%>/delete">(delete)</h3></a>	
+
+<input type="submit" value="submit">
+
+
+
+<div class="chatboxhead">
+  <div class="chatboxtitle">
+    <i class="fa fa-comments"></i>
+
+    <h1><%= @reciever.name %> </h1>
+  </div>
+  <div class="chatboxoptions">
+    <%= link_to "<i class='fa  fa-minus'></i> ".html_safe, "#", class: "toggleChatBox", "data-cid" => @conversation.id %>
+    &nbsp;&nbsp;
+    <%= link_to "<i class='fa  fa-times'></i> ".html_safe, "#", class: "closeChat", "data-cid" => @conversation.id %>
+  </div>
+</div>
+<div class="chatboxcontent">
+  <% if @messages.any? %>
+      <%= render @messages %>
+  <% end %>
+</div>
+<div class="chatboxinput">
+  <%= form_for([@conversation, @message], :remote => true, :html => { id: "conversation_form_#{@conversation.id}"}) do |f| %>
+      <%= f.text_area :body, class: "chatboxtextarea", "data-cid" => @conversation.id %>
+  <% end %>
+</div>
+
+<%= subscribe_to conversation_path(@conversation) %>
