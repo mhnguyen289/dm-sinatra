@@ -7,12 +7,9 @@ class MessagesController < ApplicationController
 	end
 
 	get '/messages/:id' do
-		
+
+		# @conversation = Conversation.find(id)
 		@user = User.find(params[:id])
-		# @conversation = Conversation.new
-		# @conversation.recipient = @user
-		# @conversation.sender = current_user
-		# @conversation.save
 		if logged_in?	
 			erb :"/messages/messages"
 		else
@@ -21,7 +18,8 @@ class MessagesController < ApplicationController
 	end
 
 	post '/messages/:id' do
-		
+		binding.pry
+		# User.conversations.create!({title: 'let us chat', message, recepient_user_id})
 		@conversation = Conversation.new
 		@conversation.sender = current_user
 		@conversation.recipient = User.find(params[:id])
