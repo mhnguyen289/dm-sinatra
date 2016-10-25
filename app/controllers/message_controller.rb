@@ -9,9 +9,10 @@ class MessagesController < ApplicationController
 	get '/messages/:id' do
 		
 		@user = User.find(params[:id])
-		@conversation = Conversation.new
-		@conversation.recipient = @user
-		@conversation.sender = current_user
+		# @conversation = Conversation.new
+		# @conversation.recipient = @user
+		# @conversation.sender = current_user
+		# @conversation.save
 		if logged_in?	
 			erb :"/messages/messages"
 		else
@@ -20,11 +21,11 @@ class MessagesController < ApplicationController
 	end
 
 	post '/messages/:id' do
-		binding.pry
+		
 		@conversation = Conversation.new
 		@conversation.sender = current_user
 		@conversation.recipient = User.find(params[:id])
-		binding.pry
+		
 		if params[:content] !=
 		@user = User.find(params[:id])
 
